@@ -1,0 +1,26 @@
+-runfw: org.eclipse.osgi;version=3.13
+-runee: JavaSE-1.8
+-runprovidedcapabilities: ${native_capability}
+
+-resolve.effective: active
+
+-runproperties: \
+	org.osgi.service.http.port=8080,\
+	osgi.console=,\
+	osgi.console.enable.builtin=false
+
+-runrequires: \
+	osgi.identity;filter:='(osgi.identity=org.apache.felix.gogo.shell)',\
+	osgi.identity;filter:='(osgi.identity=org.apache.felix.gogo.command)',\
+	osgi.identity;filter:='(osgi.identity=tdt4250_Asigment2_Servlet)'
+-runbundles: \
+	org.apache.felix.gogo.command,\
+	org.apache.felix.gogo.runtime,\
+	org.apache.felix.gogo.shell,\
+	org.apache.felix.http.jetty,\
+	org.apache.felix.http.servlet-api,\
+	org.apache.felix.scr,\
+	tdt4250_Asigment2_Servlet;version=latest,\
+	tdt4250_Assigment2_Util;version=latest,\
+	tdt4250_Assigment2_Core;version=latest,\
+	tdt4250_Assigment2_Gogo;version=latest
