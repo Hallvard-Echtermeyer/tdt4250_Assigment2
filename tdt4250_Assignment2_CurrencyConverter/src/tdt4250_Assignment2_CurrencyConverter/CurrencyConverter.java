@@ -14,7 +14,7 @@ public class CurrencyConverter extends ConverterImpl {
 	public final static Map<String, Map<String, Ratio>> RELATIONS = new HashMap<String, Map<String, Ratio>>();
 	{
 		RELATIONS.put("NOK", new HashMap<String, Ratio>(){{
-			put("USD", new Ratio(0, 0.11061946902));
+			put("USD", new Ratio("","",0, 0.11061946902));
 		}});
 	}
 

@@ -22,6 +22,7 @@ import org.osgi.service.component.annotations.ReferenceCardinality;
 
 import tdt4250_Assignment2_API.Converter;
 import tdt4250_Assignment2_API.ConverterConversionResult;
+import tdt4250_Assignment2_API.ConverterImpl;
 
 // see https://enroute.osgi.org/FAQ/500-gogo.html
 
@@ -37,9 +38,9 @@ import tdt4250_Assignment2_API.ConverterConversionResult;
 	)
 public class ConverterCommands {
 
-	private Configuration getConfig(String dictName) {
+	private Configuration getConfig(String converterName) {
 		try {
-			Configuration[] configs = cm.listConfigurations("(&(" + "converterName" + "=" + dictName + ")(service.factoryPid=" + "__InsertPID__" + "))");
+			Configuration[] configs = cm.listConfigurations("(&(" + ConverterImpl.CONVERTER_NAME_PROP+ "=" + converterName + ")(service.factoryPid=" + ConverterImpl.FACTORY_PID + "))");
 			if (configs != null && configs.length >= 1) {
 				return configs[0];
 			}
@@ -126,16 +127,16 @@ public class ConverterCommands {
 		Configuration config = getConfig(name);
 		if (config == null) {
 			// create a new one
-			config = cm.createFactoryConfiguration("?");
+			config = cm.createFactoryConfiguration(ConverterImpl.FACTORY_PID, "?");
 			actionName = "added";
 		}
 		Dictionary<String, String> props = new Hashtable<>();
 		props.put("converterName=", name);
 		if (url != null) {
-			props.put("converterResource=", url.toString());
+			props.put(ConverterImpl.CONVERTER_RESOURCE_PROP, url.toString());
 		}
 		if (ratios != null && ratios.size() > 0) {
-			props.put("converterRatios=", String.join(" ", ratios));
+			props.put(ConverterImpl.CONVERTER_RATIOS_PROP, String.join(" ", ratios));
 		}
 		config.update(props);
 		System.out.println("\"" + name + "\" dictionary " + actionName);

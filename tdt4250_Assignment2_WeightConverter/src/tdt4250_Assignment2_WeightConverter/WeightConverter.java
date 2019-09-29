@@ -15,7 +15,7 @@ public class WeightConverter extends ConverterImpl {
 	public final static Map<String, Map<String, Ratio>> RELATIONS = new HashMap<String, Map<String, Ratio>>();
 	{
 		RELATIONS.put("Kilo", new HashMap<String, Ratio>(){{
-			put("Pounds", new Ratio(0, 2.204));
+			put("Pounds", new Ratio("","",0, 2.204));
 		}});
 	}
 

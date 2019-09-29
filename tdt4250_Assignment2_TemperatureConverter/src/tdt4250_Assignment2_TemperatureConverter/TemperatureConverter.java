@@ -15,7 +15,7 @@ public class TemperatureConverter extends ConverterImpl {
 	private final static Map<String, Map<String, Ratio>> RELATIONS = new HashMap<String, Map<String, Ratio>>();
 	{
 		RELATIONS.put("C", new HashMap<String, Ratio>(){{
-			put("F", new Ratio(32, 1.8));
+			put("F", new Ratio("","",32, 1.8));
 		}});
 	}
 	
