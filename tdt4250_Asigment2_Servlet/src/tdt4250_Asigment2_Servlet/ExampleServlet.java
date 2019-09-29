@@ -16,14 +16,11 @@ import tdt4250_Assigment2_Core.ConverterConversion;
 import tdt4250_Assigment2_Core.ConverterConversionResult;
 import tdt4250_Assigment2_Util.CurrencyConverter;
 import tdt4250_Assigment2_Util.TemperatureConverter;
-import tdt4250_Assigment2_Util.WeigthConverter;
-
-
-
+import tdt4250_Assignment2_WeightConverter;
 
 
 @Component
-@HttpWhiteboardServletPattern("/example/*")
+@HttpWhiteboardServletPattern("/converter/*")
 public class ExampleServlet extends HttpServlet implements Servlet {
 
 	private static final long serialVersionUID = 1L;
@@ -33,7 +30,6 @@ public class ExampleServlet extends HttpServlet implements Servlet {
 		converterConversion.addConverter(new TemperatureConverter());
 		converterConversion.addConverter(new WeigthConverter());
 		converterConversion.addConverter(new CurrencyConverter());
-		System.out.println("hello world");
 
 	}
 

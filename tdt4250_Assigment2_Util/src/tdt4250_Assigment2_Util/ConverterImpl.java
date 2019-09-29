@@ -6,7 +6,7 @@ import java.util.Map;
 
 import tdt4250_Assigment2_Core.Converter;
 import tdt4250_Assigment2_Core.ConverterConversionResult;
-import tdt4250_Assigment2_Core.Ratio;
+import tdt4250_Assignment2_Core.Ratio;
 
 
 
