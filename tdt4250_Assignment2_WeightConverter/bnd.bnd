@@ -1,0 +1,13 @@
+Bundle-Version: 1.0.0.${tstamp}
+
+-buildpath: \
+	osgi.annotation;version=7.0.0,\
+	osgi.core;version=7.0.0,\
+	osgi.cmpn;version=7.0.0,\
+	tdt4250_Assignment2_API
+
+-testpath: \
+	${junit},\
+	${mockito},\
+	${mockito-deps}
+

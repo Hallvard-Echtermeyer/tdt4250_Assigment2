@@ -1,0 +1,15 @@
+-buildpath: \
+	osgi.annotation;version=7.0.0,\
+	osgi.core;version=7.0.0,\
+	osgi.cmpn;version=7.0.0,\
+	org.apache.felix.http.servlet-api;version=1.1.2,\
+	tdt4250_Assignment2_API;version=latest,\
+	tdt4250_Assignment2_WeightConverter;version=latest,\
+	tdt4250_Assignment2_TemperatureConverter;version=latest
+
+-testpath: \
+	${junit},\
+	${mockito},\
+	${mockito-deps}
+
+Bundle-Version: 0.0.0.${tstamp}

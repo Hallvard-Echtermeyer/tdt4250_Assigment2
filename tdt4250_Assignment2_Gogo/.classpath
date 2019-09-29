@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-12">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="aQute.bnd.classpath.container"/>
+	<classpathentry kind="src" output="bin" path="src"/>
+	<classpathentry kind="src" output="bin_test" path="test">
+		<attributes>
+			<attribute name="test" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/Henrik/.m2/repository/org/apache/felix/org.apache.felix.gogo.runtime/1.0.0/org.apache.felix.gogo.runtime-1.0.0.jar">
+		<attributes>
+			<attribute name="bsn" value="org.apache.felix.gogo.runtime"/>
+			<attribute name="type" value="REPO"/>
+			<attribute name="project" value="tdt4250_Assigment2_Gogo"/>
+		</attributes>
+		<accessrules>
+			<accessrule kind="accessible" pattern="org/apache/felix/service/command/*"/>
+			<accessrule kind="accessible" pattern="org/apache/felix/service/threadio/*"/>
+			<accessrule kind="accessible" pattern="org/apache/felix/gogo/runtime/*"/>
+			<accessrule kind="accessible" pattern="org/apache/felix/gogo/runtime/activator/*"/>
+			<accessrule kind="accessible" pattern="org/apache/felix/gogo/runtime/threadio/*"/>
+			<accessrule ignoreifbetter="true" kind="discouraged" pattern="**"/>
+		</accessrules>
+	</classpathentry>
+	<classpathentry kind="src" path="/tdt4250_Assignment2_API"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
