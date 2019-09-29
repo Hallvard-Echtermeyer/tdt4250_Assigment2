@@ -8,7 +8,7 @@ import org.osgi.service.component.annotations.Component;
 import tdt4250_Assignment2_API.Ratio;
 import tdt4250_Assignment2_API.ConverterImpl;
 
-@Component
+
 public class WeightConverter extends ConverterImpl {
 	
 	public final static String NAME = "Weight Converter";

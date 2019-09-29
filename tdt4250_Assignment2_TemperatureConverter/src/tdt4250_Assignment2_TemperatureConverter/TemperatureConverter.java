@@ -8,7 +8,7 @@ import org.osgi.service.component.annotations.Component;
 import tdt4250_Assignment2_API.ConverterImpl;
 import tdt4250_Assignment2_API.Ratio;
 
-@Component
+
 public class TemperatureConverter extends ConverterImpl {
 
 	public final static String NAME = "Temperature Converter";

@@ -15,10 +15,10 @@ import org.osgi.service.http.whiteboard.propertytypes.HttpWhiteboardServletPatte
 import tdt4250_Assignment2_API.ConverterConversion;
 import tdt4250_Assignment2_API.ConverterConversionResult;
 
-/* import tdt4250_Assignment2_TemperatureConverter.TemperatureConverter;
+ import tdt4250_Assignment2_TemperatureConverter.TemperatureConverter;
 import tdt4250_Assignment2_CurrencyConverter.CurrencyConverter;
-*/
-//import tdt4250_Assignment2_WeightConverter.WeightConverter;
+
+import tdt4250_Assignment2_WeightConverter.WeightConverter;
 
 
 @Component
@@ -30,9 +30,9 @@ public class ConverterServlet extends HttpServlet implements Servlet {
 	private ConverterConversion converterConversion = new ConverterConversion();
 	{
 			
-		//converterConversion.addConverter(new TemperatureConverter());
-		//converterConversion.addConverter(new WeightConverter());
-		//converterConversion.addConverter(new CurrencyConverter());
+		converterConversion.addConverter(new TemperatureConverter());
+		converterConversion.addConverter(new WeightConverter());
+		converterConversion.addConverter(new CurrencyConverter());
 	
 
 	}
