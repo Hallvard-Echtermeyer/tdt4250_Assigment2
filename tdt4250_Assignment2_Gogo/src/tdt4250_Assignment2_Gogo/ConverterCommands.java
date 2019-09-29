@@ -49,7 +49,7 @@ public class ConverterCommands {
 		return null;
 	}
 
-	@Descriptor("list available dictionaries")
+	@Descriptor("list available converters")
 	public void list() {
 		System.out.print("Converters: ");
 		BundleContext bc = FrameworkUtil.getBundle(this.getClass()).getBundleContext();
@@ -73,7 +73,7 @@ public class ConverterCommands {
 		System.out.println();
 	}
 
-	@Descriptor("look up a word in each available dictionary")
+	@Descriptor("convert the value according to some available converter")
 	public void lookup(
 			@Descriptor("Current unit")
 			String c,
@@ -139,10 +139,10 @@ public class ConverterCommands {
 			props.put(ConverterImpl.CONVERTER_RATIOS_PROP, String.join(" ", ratios));
 		}
 		config.update(props);
-		System.out.println("\"" + name + "\" dictionary " + actionName);
+		System.out.println("\"" + name + "\" converter " + actionName);
 	}
 
-	@Descriptor("remove a (manually added) dictionary")
+	@Descriptor("remove a (manually added) converter")
 	public void remove(
 			@Descriptor("the name of the (manually added) dictionary to remove")
 			String name
@@ -153,6 +153,6 @@ public class ConverterCommands {
 			config.delete();
 			removed = true;
 		}
-		System.out.println("\"" + name + "\" dictionary " + (removed ? "removed" : "was not added manually"));
+		System.out.println("\"" + name + "\" converter " + (removed ? "removed" : "was not added manually"));
 	}
 }
