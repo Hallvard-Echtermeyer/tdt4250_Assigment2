@@ -61,6 +61,7 @@ public class ConverterImpl implements Converter {
 
 	protected void update(BundleContext bc, ConverterImplConfig config) {
 		setConverterName(config.convertername());
+		System.out.println(getConverterName());
 		String converterUrl = config.converterResource();
 		if (converterUrl.length() > 0) {
 			URL url = null;
@@ -92,6 +93,8 @@ public class ConverterImpl implements Converter {
 				System.err.println(e);
 			}
 		}
+		System.out.println("After url loading");
+		System.out.println(relations);
 		if (config.converterRatios().length > 0) {
 			String[] ss = config.converterRatios();
 			if (relations == null) {
@@ -103,6 +106,8 @@ public class ConverterImpl implements Converter {
 				resourceRatios.addRatio(ss[i]);
 			}
 		}
+		System.out.println("After ss..");
+		System.out.println(relations);
 	}
 
 	@Override

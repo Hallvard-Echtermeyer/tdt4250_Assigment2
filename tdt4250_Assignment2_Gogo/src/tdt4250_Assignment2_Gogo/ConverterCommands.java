@@ -74,7 +74,7 @@ public class ConverterCommands {
 	}
 
 	@Descriptor("convert the value according to some available converter")
-	public void lookup(
+	public void convert(
 			@Descriptor("Current unit")
 			String c,
 			@Descriptor("New unit")
@@ -125,19 +125,22 @@ public class ConverterCommands {
 		String actionName = "updated";
 		// lookup existing configuration
 		Configuration config = getConfig(name);
+		System.out.println(name);
 		if (config == null) {
 			// create a new one
 			config = cm.createFactoryConfiguration(ConverterImpl.FACTORY_PID, "?");
 			actionName = "added";
 		}
 		Dictionary<String, String> props = new Hashtable<>();
-		props.put("converterName=", name);
+		props.put(ConverterImpl.CONVERTER_NAME_PROP, name);
 		if (url != null) {
 			props.put(ConverterImpl.CONVERTER_RESOURCE_PROP, url.toString());
 		}
 		if (ratios != null && ratios.size() > 0) {
 			props.put(ConverterImpl.CONVERTER_RATIOS_PROP, String.join(" ", ratios));
 		}
+		System.out.print("Props: ");
+		System.out.println(props);
 		config.update(props);
 		System.out.println("\"" + name + "\" converter " + actionName);
 	}

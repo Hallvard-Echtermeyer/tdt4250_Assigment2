@@ -12,6 +12,7 @@ import javax.servlet.http.*;
 import org.osgi.service.component.annotations.*;
 import org.osgi.service.http.whiteboard.propertytypes.HttpWhiteboardServletPattern;
 
+import tdt4250_Assignment2_API.Converter;
 import tdt4250_Assignment2_API.ConverterConversion;
 import tdt4250_Assignment2_API.ConverterConversionResult;
 
@@ -19,6 +20,8 @@ import tdt4250_Assignment2_API.ConverterConversionResult;
 import tdt4250_Assignment2_CurrencyConverter.CurrencyConverter;
 
 import tdt4250_Assignment2_WeightConverter.WeightConverter;
+import org.osgi.service.log.Logger;
+import org.osgi.service.log.LoggerFactory;
 
 
 @Component
@@ -28,19 +31,44 @@ public class ConverterServlet extends HttpServlet implements Servlet {
 	private static final long serialVersionUID = 1L;
 	
 	private ConverterConversion converterConversion = new ConverterConversion();
-	{
-			
+	{	
 		converterConversion.addConverter(new TemperatureConverter());
 		converterConversion.addConverter(new WeightConverter());
 		converterConversion.addConverter(new CurrencyConverter());
-	
-
+		Logger logger = getLogger();
+		logger.info("Hello");
 	}
+	
+	@Reference(
+			cardinality = ReferenceCardinality.MULTIPLE,
+			policy = ReferencePolicy.DYNAMIC,
+			bind = "addConverter",
+			unbind = "removeConverter"
+	)
+	public void addConverter(Converter converter) {
+		converterConversion.addConverter(converter);
+	}
+	public void removeConverter(Converter converter) {
+		converterConversion.removeConverter(converter);
+	}
+	
+	@Reference(cardinality = ReferenceCardinality.OPTIONAL)
+	private volatile LoggerFactory loggerFactory;
+	
+	private Logger getLogger() {
+		if (loggerFactory != null) {
+			return loggerFactory.getLogger(ConverterServlet.class);
+		}
+		return null;
+	}
+
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		List<String> segments = new ArrayList<>();
 		String path = request.getPathTranslated();
+		Logger logger = getLogger();
+		logger.info("Received request for " + path);
 		if (path != null) {
 			segments.addAll(Arrays.asList(path.split("\\/")));
 		}
