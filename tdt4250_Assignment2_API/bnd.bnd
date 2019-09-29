@@ -2,5 +2,6 @@ Bundle-Version: 1.0.0.${tstamp}
 
 -baseline: *
 -buildpath: \
-  osgi.annotation; version=7.0.0
+	osgi.annotation;version=7.0.0,\
+	osgi.core
 

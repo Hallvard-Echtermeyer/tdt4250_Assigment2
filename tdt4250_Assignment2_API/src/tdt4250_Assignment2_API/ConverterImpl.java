@@ -1,15 +1,110 @@
 package tdt4250_Assignment2_API;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import org.osgi.framework.Bundle;
+import org.osgi.framework.BundleContext;
 
-public abstract class ConverterImpl implements Converter{
-	
+import org.osgi.service.component.annotations.Activate;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.ConfigurationPolicy;
+import org.osgi.service.component.annotations.Modified;
+
+@Component(configurationPid = ConverterImpl.FACTORY_PID, configurationPolicy = ConfigurationPolicy.REQUIRE)
+
+public class ConverterImpl implements Converter {
+
+	public static final String FACTORY_PID = "tdt4250.dict3.util.WordsDict";
+	public static final String CONVERTER_RATIOS_PROP = "converterRatios";
+	public static final String CONVERTER_RESOURCE_PROP = "converterResource";
+	public static final String CONVERTER_NAME_PROP = "converterName";
+
+	private ResourceRatios resourceRatios = new ResourceRatios();
+	private String name = "";
+	private Map<String, Map<String, Ratio>> relations = new HashMap<String, Map<String, Ratio>>();
+
 	@Override
-	public abstract String getConverterName();
-	
+	public String getConverterName() {
+		return name;
+	}
+
+	protected void setConverterName(String name) {
+		this.name = name;
+	}
+
 	@Override
-	public abstract  Map<String, Map<String, Ratio>> getConverterRelations();
+	public Map<String, Map<String, Ratio>> getConverterRelations() {
+		return relations;
+	}
+
+	public @interface ConverterImplConfig {
+		String convertername();
+
+		String converterResource() default "";
+
+		String[] converterRatios() default {};
+	}
+
+	@Activate
+	public void activate(BundleContext bc, ConverterImplConfig config) {
+		update(bc, config);
+	}
+
+	@Modified
+	public void modify(BundleContext bc, ConverterImplConfig config) {
+		update(bc, config);
+	}
+
+	protected void update(BundleContext bc, ConverterImplConfig config) {
+		setConverterName(config.convertername());
+		String converterUrl = config.converterResource();
+		if (converterUrl.length() > 0) {
+			URL url = null;
+			try {
+				url = new URL(converterUrl);
+			} catch (MalformedURLException e) {
+				// try bundle resource format: <bundle-id>#<resource-path>
+				int pos = converterUrl.indexOf('#');
+				String bundleId = converterUrl.substring(0, pos);
+				String resourcePath = converterUrl.substring(pos + 1);
+				for (Bundle bundle : bc.getBundles()) {
+					if (bundle.getSymbolicName().equals(bundleId)) {
+						url = bundle.getResource(resourcePath);
+					}
+				}
+			}
+			try {
+				System.out.println("Loading words from " + url);
+				Collection<Ratio> newRatios = resourceRatios.read(url.openStream());
+				for (Ratio ratio : newRatios) {
+					Map<String, Ratio> ratios;
+					if (!relations.containsKey(ratio.getCurrentUnit())) {
+						relations.put(ratio.getCurrentUnit(), new HashMap<String, Ratio>());
+					}
+					ratios = relations.get(ratio.getCurrentUnit());
+					ratios.put(ratio.getNewUnit(), ratio);
+				}
+			} catch (IOException e) {
+				System.err.println(e);
+			}
+		}
+		if (config.converterRatios().length > 0) {
+			String[] ss = config.converterRatios();
+			if (relations == null) {
+				relations = new HashMap<String, Map<String, Ratio>>();
+				;
+			}
+
+			for (int i = 0; i < ss.length; i++) {
+				resourceRatios.addRatio(ss[i]);
+			}
+		}
+	}
+
 	@Override
 	public ConverterConversionResult convert(String currentUnit, String newUnit, int value) {
 		// Ex. currentUnit = celsius, newUnit = fahrenheit, value = 0 => 32
@@ -20,9 +115,8 @@ public abstract class ConverterImpl implements Converter{
 			if (ratios.containsKey(newUnit)) {
 				Ratio ratio = ratios.get(newUnit);
 				double convertedValue = ratio.doConversion(value);
-				return new ConverterConversionResult(true,
-						"The conversion from " + value +" "+  currentUnit + " to " + newUnit + " equals: " + convertedValue,
-						null);
+				return new ConverterConversionResult(true, "The conversion from " + value + " " + currentUnit + " to "
+						+ newUnit + " equals: " + convertedValue, null);
 			}
 		}
 		return new ConverterConversionResult(false, "The conversion from the unit " + currentUnit + ", to the unit "
