@@ -13,11 +13,16 @@ public class ResourceRatios {
 	private Collection<Ratio> ratios = new ArrayList<Ratio>();
 
 	public Collection<Ratio> read(InputStream input) throws IOException {
+		System.out.println("Started reading from url");
 		BufferedReader reader = new BufferedReader(new InputStreamReader(input, "utf-8"));
-		String line = null;
-		while ((line = reader.readLine()) != null) {
+		String line = reader.readLine();
+		while (line != null) {
 			// find indexes of commas and set
+			System.out.println("Added line: " + line.toString());
 			addRatio(line);
+			System.out.println("About to read line");
+			line = reader.readLine();
+			System.out.println("Next line is: " + line);
 		}
 		
 		return ratios;
@@ -28,20 +33,32 @@ public class ResourceRatios {
 	}
 
 	public void addRatio(String line) {
+		System.out.println("Starting to add ratio");
 
 		int cIndex = line.indexOf(',');
 		String c = line.substring(0, cIndex);
-
+		System.out.println(c);
 		int nIndex = line.indexOf(',', cIndex + 1);
 		String n = (String) line.subSequence(cIndex + 1, nIndex);
-
+		System.out.println(n);
 		int termIndex = line.indexOf(',', nIndex + 1);
 		int term = Integer.parseInt((String) line.subSequence(nIndex + 1, termIndex));
-
-		int factor = Integer.parseInt(line.substring(termIndex + 1));
-
+		System.out.println(term);
+		double factor = Double.parseDouble(line.substring(termIndex + 1));
+		System.out.println(factor);
 		Ratio ratio = new Ratio(c, n, term, factor);
+		System.out.println("Created ratio");
 		ratios.add(ratio);
+		System.out.println("Added ratio");
+	}
+	
+	public static void main(String[] args) {
+		ResourceRatios rs = new ResourceRatios();
+		System.out.println(rs.ratios);
+		rs.addRatio("F,V,10,30");
+		System.out.println(rs.ratios);
+		Ratio ratio = rs.ratios.iterator().next();
+	
 	}
 
 }

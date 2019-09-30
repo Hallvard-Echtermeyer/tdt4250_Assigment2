@@ -3,6 +3,7 @@ package tdt4250_Assignment2_API;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -18,13 +19,14 @@ import org.osgi.service.component.annotations.Modified;
 
 public class ConverterImpl implements Converter {
 
-	public static final String FACTORY_PID = "tdt4250.dict3.util.WordsDict";
+	public static final String FACTORY_PID = "tdt4250_Assignment2_API.ConverterImpl";
+	
 	public static final String CONVERTER_RATIOS_PROP = "converterRatios";
 	public static final String CONVERTER_RESOURCE_PROP = "converterResource";
 	public static final String CONVERTER_NAME_PROP = "converterName";
 
 	private ResourceRatios resourceRatios = new ResourceRatios();
-	private String name = "";
+	private String name;
 	private Map<String, Map<String, Ratio>> relations = new HashMap<String, Map<String, Ratio>>();
 
 	@Override
@@ -61,7 +63,9 @@ public class ConverterImpl implements Converter {
 
 	protected void update(BundleContext bc, ConverterImplConfig config) {
 		setConverterName(config.convertername());
-		System.out.println(getConverterName());
+		System.out.println(config.convertername());
+		System.out.println(config.converterResource());
+		System.out.println(Arrays.toString(config.converterRatios()));
 		String converterUrl = config.converterResource();
 		if (converterUrl.length() > 0) {
 			URL url = null;
@@ -79,7 +83,7 @@ public class ConverterImpl implements Converter {
 				}
 			}
 			try {
-				System.out.println("Loading words from " + url);
+				System.out.println("Loading ratios from " + url);
 				Collection<Ratio> newRatios = resourceRatios.read(url.openStream());
 				for (Ratio ratio : newRatios) {
 					Map<String, Ratio> ratios;
@@ -99,7 +103,7 @@ public class ConverterImpl implements Converter {
 			String[] ss = config.converterRatios();
 			if (relations == null) {
 				relations = new HashMap<String, Map<String, Ratio>>();
-				;
+				
 			}
 
 			for (int i = 0; i < ss.length; i++) {

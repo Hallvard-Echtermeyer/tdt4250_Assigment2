@@ -8,6 +8,8 @@ public class Ratio {
 	private double factor;
 	
 	public Ratio(String currentUnit, String newUnit, int term, double factor) {
+		this.currentUnit = currentUnit;
+		this.newUnit = newUnit;
 		this.term = term;
 		this.factor = factor;
 	}

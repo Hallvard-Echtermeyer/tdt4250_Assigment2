@@ -6,7 +6,7 @@ import tdt4250_Assignment2_API.ConverterImpl;
 @Component(
 		property = {
 				ConverterImpl.CONVERTER_NAME_PROP + "=CurrencyConverter",
-				ConverterImpl.CONVERTER_RESOURCE_PROP + "=NOK,USD,0,10"}
+				ConverterImpl.CONVERTER_RESOURCE_PROP + "=tdt4250_Assignment2_CurrencyConverter#/tdt4250_Assignment2_CurrencyConverter/cc.txt"}
 		)
 public class CurrencyConverter extends ConverterImpl {
 

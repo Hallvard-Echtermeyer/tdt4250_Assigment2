@@ -15,11 +15,6 @@ import org.osgi.service.http.whiteboard.propertytypes.HttpWhiteboardServletPatte
 import tdt4250_Assignment2_API.Converter;
 import tdt4250_Assignment2_API.ConverterConversion;
 import tdt4250_Assignment2_API.ConverterConversionResult;
-
- import tdt4250_Assignment2_TemperatureConverter.TemperatureConverter;
-import tdt4250_Assignment2_CurrencyConverter.CurrencyConverter;
-
-import tdt4250_Assignment2_WeightConverter.WeightConverter;
 import org.osgi.service.log.Logger;
 import org.osgi.service.log.LoggerFactory;
 
@@ -31,14 +26,7 @@ public class ConverterServlet extends HttpServlet implements Servlet {
 	private static final long serialVersionUID = 1L;
 	
 	private ConverterConversion converterConversion = new ConverterConversion();
-	{	
-		converterConversion.addConverter(new TemperatureConverter());
-		converterConversion.addConverter(new WeightConverter());
-		converterConversion.addConverter(new CurrencyConverter());
-		Logger logger = getLogger();
-		logger.info("Hello");
-	}
-	
+
 	@Reference(
 			cardinality = ReferenceCardinality.MULTIPLE,
 			policy = ReferencePolicy.DYNAMIC,
