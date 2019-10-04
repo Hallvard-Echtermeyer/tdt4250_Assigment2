@@ -44,7 +44,7 @@ public class ConverterImpl implements Converter {
 	}
 
 	public @interface ConverterImplConfig {
-		String convertername();
+		String converterName();
 
 		String converterResource() default "";
 
@@ -62,9 +62,9 @@ public class ConverterImpl implements Converter {
 	}
 
 	protected void update(BundleContext bc, ConverterImplConfig config) {
-		setConverterName(config.convertername());
-		System.out.println(config.convertername());
-		System.out.println(config.converterResource());
+		setConverterName(config.converterName());
+		System.out.println("Converter name from config: " + config.converterName());
+		System.out.println("Converter resource from config: " + config.converterResource());
 		System.out.println(Arrays.toString(config.converterRatios()));
 		String converterUrl = config.converterResource();
 		if (converterUrl.length() > 0) {
@@ -108,6 +108,15 @@ public class ConverterImpl implements Converter {
 
 			for (int i = 0; i < ss.length; i++) {
 				resourceRatios.addRatio(ss[i]);
+			}
+			Collection<Ratio> ratios = resourceRatios.getRatios();
+			for(Ratio ratio : ratios) {
+				if(!relations.containsKey(ratio.getCurrentUnit())) {
+					relations.put(ratio.getCurrentUnit(), new HashMap<String, Ratio>());
+				}
+				Map<String, Ratio> map = relations.get(ratio.getCurrentUnit());
+				map.put(ratio.getNewUnit(), ratio);
+				
 			}
 		}
 		System.out.println("After ss..");

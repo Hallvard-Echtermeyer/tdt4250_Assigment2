@@ -5,27 +5,16 @@ import java.util.Map;
 
 import org.osgi.service.component.annotations.Component;
 
+import tdt4250_Assignment2_API.Converter;
 import tdt4250_Assignment2_API.ConverterImpl;
 import tdt4250_Assignment2_API.Ratio;
 
+@Component(
+		service=Converter.class,
+		property = {
+				ConverterImpl.CONVERTER_NAME_PROP + "=TemperatureConverter",
+				ConverterImpl.CONVERTER_RESOURCE_PROP + "=tdt4250_Assignment2_TemperatureConverter#/tdt4250_Assignment2_TemperatureConverter/cc.txt"}
+		)
 
 public class TemperatureConverter extends ConverterImpl {
-
-	private final static String NAME = "Temperature Converter";
-	private final static Map<String, Map<String, Ratio>> RELATIONS = new HashMap<String, Map<String, Ratio>>();
-	{
-		RELATIONS.put("C", new HashMap<String, Ratio>(){{
-			put("F", new Ratio("","",32, 1.8));
-		}});
-	}
-	
-	@Override
-	public String getConverterName() {
-		return NAME;
-	}
-	
-	@Override
-	public  Map<String, Map<String, Ratio>> getConverterRelations() {
-		return RELATIONS;
-	}
 }

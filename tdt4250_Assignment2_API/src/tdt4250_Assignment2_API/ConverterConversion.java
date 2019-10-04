@@ -32,6 +32,7 @@ public class ConverterConversion {
 		for (Converter converter : converters) {
 			System.out.println("Converter: " + converter.getConverterName());
 			ConverterConversionResult result = converter.convert(currentUnit,newUnit, value);
+			System.out.println("Converter relations: " + converter.getConverterRelations().toString()); 
 			if (result.isSuccess()) {
 				messages.append(result.getMessage());
 				messages.append(". Used converter: " + converter.getConverterName() + "\n");

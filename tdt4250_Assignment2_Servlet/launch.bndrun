@@ -5,9 +5,10 @@
 -resolve.effective: active
 
 -runproperties: \
-	org.osgi.service.http.port=8080,\
+	osgi.clean=true,\
 	osgi.console=,\
-	osgi.console.enable.builtin=false 
+	org.osgi.service.http.port=8080,\
+	osgi.console.enable.builtin=true
 
 -runrequires: \
 	osgi.identity;filter:='(osgi.identity=org.apache.felix.gogo.shell)',\
@@ -16,7 +17,9 @@
 	bnd.identity;id='org.apache.felix.configadmin',\
 		bnd.identity;id='org.osgi.service.cm',\
 	bnd.identity;id='tdt4250_Assignment2_Gogo',\
-	bnd.identity;id='tdt4250_Assignment2_CurrencyConverter'
+	bnd.identity;id='tdt4250_Assignment2_CurrencyConverter',\
+	bnd.identity;id='tdt4250_Assignment2_WeightConverter',\
+	bnd.identity;id='tdt4250_Assignment2_TemperatureConverter'
 -runbundles: \
 	org.apache.felix.gogo.command;version='[1.0.2,1.0.3)',\
 	org.apache.felix.gogo.runtime;version='[1.0.10,1.0.11)',\
@@ -29,4 +32,6 @@
 	tdt4250_Assignment2_CurrencyConverter;version=snapshot,\
 	org.apache.felix.configadmin;version='[1.9.8,1.9.9)',\
 	tdt4250_Assignment2_Gogo;version=snapshot,\
-	org.osgi.service.cm;version='[1.5.0,1.5.1)'
+	org.osgi.service.cm;version='[1.5.0,1.5.1)',\
+	tdt4250_Assignment2_TemperatureConverter;version=snapshot,\
+	tdt4250_Assignment2_WeightConverter;version=snapshot

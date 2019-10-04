@@ -31,6 +31,10 @@ public class ResourceRatios {
 	public ResourceRatios()  {
 
 	}
+	
+	public Collection<Ratio> getRatios(){
+		return ratios;
+	}
 
 	public void addRatio(String line) {
 		System.out.println("Starting to add ratio");
