@@ -63,9 +63,7 @@ public class ConverterImpl implements Converter {
 
 	protected void update(BundleContext bc, ConverterImplConfig config) {
 		setConverterName(config.converterName());
-		System.out.println("Converter name from config: " + config.converterName());
-		System.out.println("Converter resource from config: " + config.converterResource());
-		System.out.println(Arrays.toString(config.converterRatios()));
+		
 		String converterUrl = config.converterResource();
 		if (converterUrl.length() > 0) {
 			URL url = null;
@@ -83,7 +81,7 @@ public class ConverterImpl implements Converter {
 				}
 			}
 			try {
-				System.out.println("Loading ratios from " + url);
+				
 				Collection<Ratio> newRatios = resourceRatios.read(url.openStream());
 				for (Ratio ratio : newRatios) {
 					Map<String, Ratio> ratios;
@@ -94,11 +92,10 @@ public class ConverterImpl implements Converter {
 					ratios.put(ratio.getNewUnit(), ratio);
 				}
 			} catch (IOException e) {
-				System.err.println(e);
+				
 			}
 		}
-		System.out.println("After url loading");
-		System.out.println(relations);
+		
 		if (config.converterRatios().length > 0) {
 			String[] ss = config.converterRatios();
 			if (relations == null) {
@@ -119,8 +116,7 @@ public class ConverterImpl implements Converter {
 				
 			}
 		}
-		System.out.println("After ss..");
-		System.out.println(relations);
+
 	}
 
 	@Override

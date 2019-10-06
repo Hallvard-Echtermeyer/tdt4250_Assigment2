@@ -51,26 +51,26 @@ public class ConverterCommands {
 
 	@Descriptor("list available converters")
 	public void list() {
-		System.out.print("Converters: ");
+	
 		BundleContext bc = FrameworkUtil.getBundle(this.getClass()).getBundleContext();
 		try {
 			for (ServiceReference<Converter> serviceReference : bc.getServiceReferences(Converter.class, null)) {
 				Converter converter = bc.getService(serviceReference);
 				try {
 					if (converter != null) {
-						System.out.print(converter.getConverterName());
+					
 						if (getConfig(converter.getConverterName()) != null) {
-							System.out.print("*");						
+													
 						}
 					}
 				} finally {
 					bc.ungetService(serviceReference);
 				}
-				System.out.print(" ");
+				
 			}
 		} catch (InvalidSyntaxException e) {
 		}
-		System.out.println();
+	
 	}
 
 	@Descriptor("convert the value according to some available converter")
@@ -90,12 +90,12 @@ public class ConverterCommands {
 				if (converter != null) {
 					try {
 						ConverterConversionResult result = converter.convert(c,n,v);
-						System.out.println(converter.getConverterName() + ": " + result.getMessage());
+						
 					} finally {
 						bc.ungetService(serviceReference);
 					}
 				} else {
-					System.out.println(serviceReference.getProperties());
+
 				}
 			}
 		} catch (InvalidSyntaxException e) {
@@ -125,7 +125,7 @@ public class ConverterCommands {
 		String actionName = "updated";
 		// lookup existing configuration
 		Configuration config = getConfig(name);
-		System.out.println(name);
+		
 		if (config == null) {
 			// create a new one
 			config = cm.createFactoryConfiguration(ConverterImpl.FACTORY_PID, "?");
@@ -139,10 +139,9 @@ public class ConverterCommands {
 		if (ratios != null && ratios.size() > 0) {
 			props.put(ConverterImpl.CONVERTER_RATIOS_PROP, String.join(" ", ratios));
 		}
-		System.out.print("Props: ");
-		System.out.println(props);
+	
 		config.update(props);
-		System.out.println("\"" + name + "\" converter " + actionName);
+		
 	}
 
 	@Descriptor("remove a (manually added) converter")
@@ -156,6 +155,6 @@ public class ConverterCommands {
 			config.delete();
 			removed = true;
 		}
-		System.out.println("\"" + name + "\" converter " + (removed ? "removed" : "was not added manually"));
+		
 	}
 }

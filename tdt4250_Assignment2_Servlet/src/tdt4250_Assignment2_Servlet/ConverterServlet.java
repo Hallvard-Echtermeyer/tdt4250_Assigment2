@@ -67,15 +67,14 @@ public class ConverterServlet extends HttpServlet implements Servlet {
 			response.sendError(HttpServletResponse.SC_NOT_ACCEPTABLE, "Request must contain max 1 path segment");
 			return;
 		}
-		System.out.println("Got past segment stuff");
+		
 		String c = request.getParameter("c");
-		System.out.println("c: " + c);
+	
 		String n = request.getParameter("n");
-		System.out.println("n: " + n);
-		System.out.println("Got past string arguments");
-		System.out.println(request.getParameter("v"));
+	
+		
 		int v = Integer.parseInt(request.getParameter("v"));
-		System.out.println("Got past int arguments");
+		
 		ConverterConversionResult result = converterConversion.convert(c,n,v);
 		response.setContentType("text/plain");
 		PrintWriter writer = response.getWriter();
