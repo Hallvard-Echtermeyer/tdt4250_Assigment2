@@ -36,10 +36,11 @@ tdt4250_Assigment2_API
 tdt4250_Assigment2_Servlet
  - Lets you connect to the Localhost on your computer, in order to interact with this servlet you need to type in http://localhost:8080/example in order to access the webservice. the format for getting a conversion is http://localhost:8080/example?c=Kilo&n=Pounds&v=32
  
- Value  explanation
-   -c = the unit of conversion you want to convert from
-   -n = the unit of conversion you want to convert to
-   -v = the value you want to convert 
+ Value  explanation:
+ - c= the unit of conversion you want to convert from
+ - n = the unit of conversion you want to convert to
+ - v = the value you want to convert
+  
  
  tdt4250_Assigment2_Gogo
  Here are the Gogo created commands which you can type into the Gogo shell in order to List, Add, Remove and Convert
