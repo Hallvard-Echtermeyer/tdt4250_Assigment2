@@ -46,12 +46,19 @@ tdt4250_Assigment2_Servlet
  - Here are the Gogo created commands which you can type into the Gogo shell in order to List, Add, Remove and Convert
  
  Examples
- - Hello
+ - list : List all converters currently instantiated.
+ - remove: CustomConverter : Remove converter with name CustomConverter
+ - convert: C F 30 : Do conversion, with all current converters, with C as currentUnit, F as newUnit, and 30 as the value.
+ - add: CustomConverter C,F,0,10 : Add a new converter, with name set to "CustomConverter", and with a Ratio from C to F, with a term of 0 and factor of 10.
+ 
+
  
 
  
 
   
+
+
 
 
  
